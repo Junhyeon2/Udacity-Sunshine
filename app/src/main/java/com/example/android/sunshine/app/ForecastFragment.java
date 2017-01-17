@@ -16,9 +16,11 @@
 package com.example.android.sunshine.app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -35,11 +37,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.android.sunshine.app.data.WeatherContract;
+import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 
 /**
  * Encapsulates fetching the forecast and displaying it as a {@link ListView} layout.
  */
-public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+//[Lesson2] 09.Show Users the Status - 03. SharedPreferences.OnSharedPreferenceChangeListener 구현
+public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String LOG_TAG = ForecastFragment.class.getSimpleName();
     private ForecastAdapter mForecastAdapter;
 
@@ -103,6 +107,22 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         super.onCreate(savedInstanceState);
         // Add this line in order for this fragment to handle menu events.
         setHasOptionsMenu(true);
+    }
+
+    //[Lesson2] 09.Show Users the Status - 05. SharedPreferenceChangeListener 등록
+    @Override
+    public void onResume() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        super.onResume();
+    }
+
+    //[Lesson2] 09.Show Users the Status - 06. SharedPreferenceChangeListener 해제
+    @Override
+    public void onPause() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+        super.onPause();
     }
 
     @Override
@@ -277,13 +297,29 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     //[Lesson2] 05.Are We Offline - 04. Empty 메세지를 출력하는 메서드 만들기
     private void updateEmptyView(){
         if(mForecastAdapter.getCount() == 0){
-            int message;
-            if(!Utility.isNetworkAvailable(getActivity())){
-                message = R.string.network_error_message;
-            }else{
-                message = R.string.no_weather_message;
+            //[Lesson2] 09.Show Users the Status - 03. SharedPreferences 에서 Location Status 값을 받아와 Empty 메세지 설정
+            int message = R.string.no_weather_message;
+            @SunshineSyncAdapter.LocationStatus int location = Utility.getLocationStatus(getActivity());
+            switch (location){
+                case SunshineSyncAdapter.LOCATION_STATUS_SERVER_DOWN:
+                    message = R.string.network_server_down_message;
+                    break;
+                case SunshineSyncAdapter.LOCATION_STATUS_SERVER_INVALID:
+                    message = R.string.network_server_invalid_message;
+                    break;
+                default:
+                    if(!Utility.isNetworkAvailable(getActivity()))
+                        message = R.string.network_error_message;
             }
             mNoWeatherTextView.setText(getString(message));
+        }
+    }
+
+    //[Lesson2] 09.Show Users the Status - 06. SharedPreferences.OnSharedPreferenceChangeListener 정의
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if(key.equals(getString(R.string.pref_location_status_key))){
+            updateEmptyView();
         }
     }
 }

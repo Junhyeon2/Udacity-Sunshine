@@ -118,4 +118,8 @@
 
     <!-- [Lesson2] 05.Are We Offline - 02. 네트워크의 연결 상태가 좋지 않을 때 출력하는 메세지-->
     <string name="network_error_message">No Weather Information Available. Network is not available</string>
+
+    <!-- [Lesson2] 09.Show Users the Status - 02. 네트워크 상태에 따른 에러메세지 추가.  -->
+    <string name="network_server_down_message">No Weather Information Available. The server is not returning data</string>
+    <string name="network_server_invalid_message">No Weather Information Available. The server is not returning valid data</string>
 </resources>
