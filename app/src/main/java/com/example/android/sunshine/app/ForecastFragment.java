@@ -32,9 +32,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.android.sunshine.app.data.WeatherContract;
-import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 
 /**
  * Encapsulates fetching the forecast and displaying it as a {@link ListView} layout.
@@ -46,6 +46,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     private ListView mListView;
     private int mPosition = ListView.INVALID_POSITION;
     private boolean mUseTodayLayout;
+    private TextView mNoWeatherTextView; //쿼리 결과가 비어있을 때. 날씨 정보를 사용할 수 없다는 메세지를 나타내는 TextView
 
     private static final String SELECTED_KEY = "selected_position";
 
@@ -139,6 +140,10 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
         // Get a reference to the ListView, and attach this adapter to it.
         mListView = (ListView) rootView.findViewById(R.id.listview_forecast);
+        // 리스트가 비어 있을 때 보여줄 뷰를 메모리에 올린 후 setEmptyView 메소드를 호출하여 비어있는 뷰로 설정해준다.
+        mNoWeatherTextView = (TextView)rootView.findViewById(R.id.tv_no_weather);
+        mListView.setEmptyView(mNoWeatherTextView);
+
         mListView.setAdapter(mForecastAdapter);
         // We'll call our MainActivity
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
