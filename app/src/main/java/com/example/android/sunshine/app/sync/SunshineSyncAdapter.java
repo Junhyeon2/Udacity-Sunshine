@@ -71,11 +71,11 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     private static final int INDEX_MIN_TEMP = 2;
     private static final int INDEX_SHORT_DESC = 3;
 
-    // [Lesson3] 07. Status Storage - 03. Retention, IntDef 어노테이션 정의
+    // [Lesson2] 07. Status Storage - 03. Retention, IntDef 어노테이션 정의
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({LOCATION_STATUS_OK, LOCATION_STATUS_SERVER_DOWN, LOCATION_STATUS_SERVER_INVALID,  LOCATION_STATUS_UNKNOWN})
     public @interface LocationStatus {}
-    // [Lesson3] 07. Status Storage - 04. Location Status 나타내는 int형 상수로 표현.
+    // [Lesson2] 07. Status Storage - 04. Location Status 나타내는 int형 상수로 표현.
     public static final int LOCATION_STATUS_OK = 0;
     public static final int LOCATION_STATUS_SERVER_DOWN = 1;
     public static final int LOCATION_STATUS_SERVER_INVALID = 2;
@@ -148,7 +148,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
             if (buffer.length() == 0) {
                 // Stream was empty.  No point in parsing.
-                // [Lesson3] 07. Status Storage - 06. 서버가 문제가 있는 경우
+                // [Lesson2] 07. Status Storage - 06. 서버가 문제가 있는 경우
                 setLocationStatus(getContext(), LOCATION_STATUS_SERVER_DOWN);
                 return;
             }
@@ -158,12 +158,12 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the weather data, there's no point in attempting
             // to parse it.
-            // [Lesson3] 07. Status Storage - 06. 서버가 문제가 있는 경우
+            // [Lesson2] 07. Status Storage - 06. 서버가 문제가 있는 경우
             setLocationStatus(getContext(), LOCATION_STATUS_SERVER_DOWN);
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
-            // [Lesson3] 07. Status Storage - 07. 넘겨받은 데이터가 JSON 형식이 아닌 경우.
+            // [Lesson2] 07. Status Storage - 07. 넘겨받은 데이터가 JSON 형식이 아닌 경우.
             setLocationStatus(getContext(), LOCATION_STATUS_SERVER_INVALID);
         } finally {
             if (urlConnection != null) {
@@ -326,12 +326,12 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             }
 
             Log.d(LOG_TAG, "Sync Complete. " + cVVector.size() + " Inserted");
-            // [Lesson3] 07. Status Storage - 08. 넘겨받은 데이터를 데이터베이스에 저장했을 경우.
+            // [Lesson2] 07. Status Storage - 08. 넘겨받은 데이터를 데이터베이스에 저장했을 경우.
             setLocationStatus(getContext(), LOCATION_STATUS_OK);
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
-            // [Lesson3] 07. Status Storage - 07. 넘겨받은 데이터가 JSON 형식이 아닌 경우.
+            // [Lesson2] 07. Status Storage - 07. 넘겨받은 데이터가 JSON 형식이 아닌 경우.
             setLocationStatus(getContext(), LOCATION_STATUS_SERVER_INVALID);
         }
     }
@@ -559,7 +559,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         getSyncAccount(context);
     }
 
-    // [Lesson3] 07. Status Storage - 05. SharedPreferences를 이용해서 Location Status 저장하는 메소드
+    // [Lesson2] 07. Status Storage - 05. SharedPreferences를 이용해서 Location Status 저장하는 메소드
     private static void setLocationStatus(Context context, @LocationStatus int locationStatus){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();

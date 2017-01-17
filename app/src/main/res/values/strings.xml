@@ -45,7 +45,7 @@
     <!-- Default postal code for location preference [CHAR LIMIT=NONE] -->
     <string name="pref_location_default" translatable="false">94043</string>
 
-    <!-- [Lesson3] 07. Status Storage - 01. SharedPreferences location_status key name-->
+    <!-- [Lesson2] 07. Status Storage - 01. SharedPreferences location_status key name-->
     <string name="pref_location_status_key" translatable="false">location_status</string>
 
     <!-- Strings related to Notification Enabled preference -->
