@@ -258,6 +258,8 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             // to, do so now.
             mListView.smoothScrollToPosition(mPosition);
         }
+        //[Lesson2] 05.Are We Offline - 06. 데이터 가져오는 것을 완료한 후에 알맞는 Empty 메세지 출력.
+        updateEmptyView();
     }
 
     @Override
@@ -269,6 +271,19 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         mUseTodayLayout = useTodayLayout;
         if (mForecastAdapter != null) {
             mForecastAdapter.setUseTodayLayout(mUseTodayLayout);
+        }
+    }
+
+    //[Lesson2] 05.Are We Offline - 04. Empty 메세지를 출력하는 메서드 만들기
+    private void updateEmptyView(){
+        if(mForecastAdapter.getCount() == 0){
+            int message;
+            if(!Utility.isNetworkAvailable(getActivity())){
+                message = R.string.network_error_message;
+            }else{
+                message = R.string.no_weather_message;
+            }
+            mNoWeatherTextView.setText(getString(message));
         }
     }
 }

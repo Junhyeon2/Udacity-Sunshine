@@ -111,4 +111,7 @@
 
     <!-- 날씨 정보가 데이터베이스에 존재하지 않을 경우 출력하는 메세지-->
     <string name="no_weather_message">No Weather Information Available</string>
+
+    <!-- [Lesson2] 05.Are We Offline - 02. 네트워크의 연결 상태가 좋지 않을 때 출력하는 메세지-->
+    <string name="network_error_message">No Weather Information Available. Network is not available</string>
 </resources>

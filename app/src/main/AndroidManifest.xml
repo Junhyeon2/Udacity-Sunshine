@@ -28,6 +28,9 @@
     <uses-permission
         android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
 
+    <!-- [Lesson2] 05.Are We Offline - 01. 네트워크 연결 상태를 알 수 있는 퍼미션 추가 인터넷 퍼미션과는 별도로 지정해줘야한다.-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
