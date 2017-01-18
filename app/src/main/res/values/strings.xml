@@ -125,4 +125,8 @@
 
     <!-- [Lesson2] 11.Detect Invalid Location 06. 404 에러일 경우에 보여줄 에러메세지 추가 -->
     <string name="invalid_location_error_message">No weather information available. The location in settings is not recognized by the weather server.</string>
+
+    <!-- [Lesson2] 13.Surface the Status in Settings 01. Preference에 보여줄 메세지 추가. 유효한 경우와 유효하지 않은 경우로 구분 -->
+    <string name="pref_location_error_description">Invalid Location (<xliff:g id="location_setting">%1$s</xliff:g>)"</string>
+    <string name="pref_location_unknown_description">Validating Location... (<xliff:g id="location_setting">%1$s</xliff:g>)"</string>
 </resources>
