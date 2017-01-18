@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--[Lesson2] 15.Implement limits part1 - 01. Custom Preference EditText 속성 정의 -->
+<resources>
+    <declare-styleable name="LocationEditTextPreference">
+        <attr name="minLength" format="integer" />
+    </declare-styleable>
+</resources>
