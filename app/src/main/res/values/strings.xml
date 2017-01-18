@@ -122,4 +122,7 @@
     <!-- [Lesson2] 09.Show Users the Status - 02. 네트워크 상태에 따른 에러메세지 추가.  -->
     <string name="network_server_down_message">No Weather Information Available. The server is not returning data</string>
     <string name="network_server_invalid_message">No Weather Information Available. The server is not returning valid data</string>
+
+    <!-- [Lesson2] 11.Detect Invalid Location 06. 404 에러일 경우에 보여줄 에러메세지 추가 -->
+    <string name="invalid_location_error_message">No weather information available. The location in settings is not recognized by the weather server.</string>
 </resources>

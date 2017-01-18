@@ -307,6 +307,10 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
                 case SunshineSyncAdapter.LOCATION_STATUS_SERVER_INVALID:
                     message = R.string.network_server_invalid_message;
                     break;
+                // [Lesson2] 11.Detect Invalid Location 07. 404 에러일 경우에 Empty 메세지 설정
+                case SunshineSyncAdapter.LOCATION_STATUS_INVALID:
+                    message = R.string.invalid_location_error_message;
+                    break;
                 default:
                     if(!Utility.isNetworkAvailable(getActivity()))
                         message = R.string.network_error_message;
